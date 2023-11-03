@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebApplication1.Models.Checkin>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - player.cshtml";
+}
+<head>
+    <style>
+        .card {
+            padding: 10px;
+        }
+
+        .pagetitle {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+
+<main class="main" id="main">
+    <div class="pagetitle">
+        <h1>選手打卡 <span class="pagetitle"><i class="ri-arrow-drop-right-fill"></i>提供選手紀錄訓練時間用。</span></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                <li class="breadcrumb-item active">選手打卡</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <hr />
+    <div class="card">
+
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            系統目前時間為: <b>@DateTime.Now</b> ，提醒您記得要訓練開始及結束都要打卡!!
+
+        </div>
+        <div>
+            <div>
+                <button class="btn btn-danger">@Html.ActionLink("點我打卡", "Create", null, new { style = "color: white;" })</button>  |
+                <button class="btn btn-success">我要離開點我一下</button>
+            </div>
+            
+            
+
+        </div>
+        <hr />
+        <div>
+            <p>以下是您的打卡紀錄</p>
+        </div>
+        <table class="table table table-striped">
+            <tr>
+                <th>
+                    上班時間
+                </th>
+                <th>
+                    下班時間
+                </th>
+                <th>
+                    時數
+                </th>
+                <th>
+                    備註
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Work_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Getoff_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        <hr />
+        <div class="faq">
+            <p>
+                <i class="ri-error-warning-fill"></i> 時數計算方式：<br />中午12:00~下午13:00為休息時間，故時數不算在內!<br />
+                例如:王小樹今天上午8點開始訓練，下午5點結束訓練，則時數計算方式會是 <b>08:00~12:00(4hr)+13:00~17:00(4hr)</b>，總計時數會是 <b>8小時</b>
+            </p>
+
+        </div>
+    </div>
+
+</main>
+
